@@ -1,10 +1,9 @@
-#!/usr/bin/env node
-
 import { Command } from 'commander';
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
 import readline from 'readline';
+import { profileEnd } from 'console';
 
 // Initialize the CLI program
 const program = new Command();
@@ -14,6 +13,11 @@ const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
+
+const findBestMatch = (input, items) => {
+  const results = fuzzy.filter(input, items);
+  return results[0] ? results[0].string : null;
+};
 
 // Function to prompt user for file path
 const promptFilePath = () => {
@@ -66,6 +70,34 @@ const addTodo = async (todo, dueDate) => {
   process.exit(0);
 };
 
+const deleteTodo = async (todo) => {
+  const filePath = await getTodoFilePath();
+
+  let todos = [];
+  if (fs.existsSync(filePath)) {
+    todos = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+  }
+
+  if (!Array.isArray(todos)) {
+    console.log(chalk.red('JSON file must be in array format.'));
+  }
+  let amountOfTasksRemoved = 0;
+  todos.forEach((item, index) => {
+    if (item.name.toLowerCase() === todo.toLowerCase()) {
+      amountOfTasksRemoved++;
+      todos.splice(index, 1);
+    }
+  });
+  if (amountOfTasksRemoved === 0) {
+    console.log(chalk.red(`Didn't match any tasks named "${todo}".`));
+    process.exit(1);
+  } else {
+  fs.writeFileSync(filePath, JSON.stringify(todos, null, 2));
+  console.log(chalk.red(`Successfully removed 1 task${amountOfTasksRemoved - 1 > 0 ? ` and ${amountOfTasksRemoved} duplicate(s)` : ''} from your todo list.`));
+  process.exit(0);
+  }
+};
+
 // Function to list the contents of the JSON file
 const listTodos = async () => {
   const filePath = await getTodoFilePath();
@@ -94,5 +126,10 @@ program
   .command('list')
   .description('List the contents of the JSON file')
   .action(listTodos);
+
+program
+  .command('delete <todoName>')
+  .description('Delete a task from the todo list')
+  .action(deleteTodo);
 
 program.parse(process.argv);
