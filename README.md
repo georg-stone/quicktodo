@@ -15,7 +15,7 @@ npm install -g quicktodo
 To add a to-do list item, run:
 
 ```bash
-quicktodo add <task name> [due date]
+todo add <task name> [due date]
 ```
 
 **Note:** when running for the first time, QuickTodo will ask you for the file path to your JSON file.
@@ -23,7 +23,12 @@ quicktodo add <task name> [due date]
 To list all your todos, run:
 
 ```bash
-quicktodo list
+todo list
+```
+To remove a todo, run:
+
+```bash
+todo delete <task name>
 ```
 
 ## License
