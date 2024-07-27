@@ -1,0 +1,21 @@
+{
+  "name": "quicktodo",
+  "version": "1.0.0",
+  "description": "A CLI tool for managing todos",
+  "bin": {
+    "quicktodo": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "dependencies": {
+    "chalk": "^5.0.0",
+    "commander": "^12.1.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "author": "George Stone",
+  "license": "MIT",
+  "type": "module"
+}
