@@ -1,5 +1,5 @@
 # QuickTodo
-[![npm version](https://img.shields.io/npm/v/quicktodo.svg?style=flat)](https://www.npmjs.com/package/quicktodo)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/georg-stone/quicktodo/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/quicktodo.svg?style=flat)](https://www.npmjs.com/package/quicktodo)
 
 **QuickTodo** is a simple and efficient command-line tool for managing your todos. With QuickTodo, you can easily add and list todos from your terminal.
 
